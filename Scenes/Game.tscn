@@ -1,0 +1,136 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Assets/Fonts/EuropeanTeletext.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/Game.gd" type="Script" id=2]
+[ext_resource path="res://Scenes/Prefabs/Cookie.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Assets/Store.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Task.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 80
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 35
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 35
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 35
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Gain"
+length = 0.3
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 720.0
+margin_bottom = 1280.0
+mouse_filter = 2
+color = Color( 0.705882, 0.458824, 0.0313726, 0.415686 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cookie" parent="." instance=ExtResource( 3 )]
+position = Vector2( 360, 640 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Generate" type="Node2D" parent="."]
+
+[node name="Timer" type="Timer" parent="Generate"]
+wait_time = 5.0
+autostart = true
+
+[node name="HUD" type="Node2D" parent="."]
+pause_mode = 2
+
+[node name="Control" type="Control" parent="HUD"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Cookies" type="Label" parent="HUD/Control"]
+margin_top = 30.0
+margin_right = 720.0
+margin_bottom = 110.0
+custom_fonts/font = SubResource( 1 )
+text = "0"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="perSecond" type="Label" parent="HUD/Control"]
+margin_top = 120.0
+margin_right = 720.0
+custom_fonts/font = SubResource( 2 )
+text = "0  / per second"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Store" type="TouchScreenButton" parent="HUD"]
+position = Vector2( 20, 1120 )
+normal = ExtResource( 5 )
+shape_centered = false
+shape_visible = false
+
+[node name="Control" type="Control" parent="HUD/Store"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/Store/Control"]
+margin_left = -5.0
+margin_top = -30.0
+margin_right = 140.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 3 )
+text = "Store"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Task" type="TouchScreenButton" parent="HUD"]
+position = Vector2( 570, 1120 )
+normal = ExtResource( 6 )
+
+[node name="Control" type="Control" parent="HUD/Task"]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="HUD/Task/Control"]
+margin_left = -10.0
+margin_top = -30.0
+margin_right = 135.0
+margin_bottom = 17.0
+custom_fonts/font = SubResource( 4 )
+text = "Task"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HUD"]
+anims/Gain = SubResource( 5 )
+[connection signal="click_disable" from="." to="Cookie" method="_on_Game_click_disable"]
+[connection signal="click_enable" from="." to="Cookie" method="_on_Game_click_enable"]
+[connection signal="timeout" from="Generate/Timer" to="." method="_on_Timer_timeout"]
+[connection signal="pressed" from="HUD/Store" to="." method="_on_Store_pressed"]
+[connection signal="pressed" from="HUD/Task" to="." method="_on_Task_pressed"]

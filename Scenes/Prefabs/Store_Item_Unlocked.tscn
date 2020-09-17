@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Assets/Fonts/EuropeanTeletext.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/Store_Item.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Store/item_background.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Store/buy.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+size = 35
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 31
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 50
+font_data = ExtResource( 1 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 325, 65 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Background" type="Sprite" parent="."]
+scale = Vector2( 2.5, 0.5 )
+texture = ExtResource( 4 )
+
+[node name="Buy" type="Sprite" parent="."]
+position = Vector2( 260, 0.301 )
+scale = Vector2( 1, 1.05 )
+texture = ExtResource( 5 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Type" type="Label" parent="Control"]
+margin_left = -300.0
+margin_top = -40.0
+margin_right = 74.0
+margin_bottom = 27.0
+custom_fonts/font = SubResource( 1 )
+text = "type
+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Price" type="Label" parent="Control"]
+margin_left = -295.0
+margin_top = 10.0
+margin_right = -96.0
+margin_bottom = 45.0
+custom_fonts/font = SubResource( 2 )
+text = "0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amount" type="Label" parent="Control"]
+margin_left = 191.0
+margin_top = -67.0
+margin_right = 325.4
+margin_bottom = 67.4
+custom_fonts/font = SubResource( 3 )
+text = "0"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+shape = SubResource( 4 )
+shape_centered = false
+shape_visible = false
+[connection signal="pressed" from="TouchScreenButton" to="." method="_on_TouchScreenButton_pressed"]
